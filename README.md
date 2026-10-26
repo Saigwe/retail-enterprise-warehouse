@@ -141,7 +141,7 @@ make all
 - [ ] Open the model in Power BI Desktop, verify it, and build the report pages (needs Power BI Desktop)
 - [ ] Report the duplicated months to the publisher
 - [ ] Slim CI: build only modified models against the production manifest
-- [ ] 3-minute Loom walkthrough
+- [ ] 3-minute Loom walkthrough ([script ready](docs/walkthrough.md))
 
 ## Data and licence
 - **Iowa Liquor Sales:** Iowa Department of Revenue, Alcoholic Beverages Division, via the [Iowa Data Hub](https://data.iowa.gov), CC BY.
