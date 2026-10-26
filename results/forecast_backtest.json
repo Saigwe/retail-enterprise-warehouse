@@ -1,0 +1,43 @@
+{
+  "test_weeks": 51,
+  "series": 500,
+  "horizon_weeks": 4,
+  "wape": {
+    "lgbm": {
+      "Agave & Rum": 0.1033,
+      "Gin, Brandy & Other": 0.1728,
+      "Liqueurs & Cordials": 0.068,
+      "Vodka & Neutral Spirits": 0.1021,
+      "Whiskey": 0.0901,
+      "business unit (pooled)": 0.1012,
+      "state": 0.0776
+    },
+    "lgbm_raw_file": {
+      "Agave & Rum": 0.4132,
+      "Gin, Brandy & Other": 0.595,
+      "Liqueurs & Cordials": 0.4484,
+      "Vodka & Neutral Spirits": 0.4209,
+      "Whiskey": 0.4133,
+      "business unit (pooled)": 0.4415,
+      "state": 0.4295
+    },
+    "recent_mean": {
+      "Agave & Rum": 0.1498,
+      "Gin, Brandy & Other": 0.1405,
+      "Liqueurs & Cordials": 0.0851,
+      "Vodka & Neutral Spirits": 0.1224,
+      "Whiskey": 0.1361,
+      "business unit (pooled)": 0.128,
+      "state": 0.0837
+    },
+    "seasonal_naive": {
+      "Agave & Rum": 0.105,
+      "Gin, Brandy & Other": 0.1943,
+      "Liqueurs & Cordials": 0.0702,
+      "Vodka & Neutral Spirits": 0.0963,
+      "Whiskey": 0.1079,
+      "business unit (pooled)": 0.1088,
+      "state": 0.0798
+    }
+  }
+}

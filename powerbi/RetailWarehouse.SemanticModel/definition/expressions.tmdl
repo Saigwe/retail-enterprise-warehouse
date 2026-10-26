@@ -1,0 +1,3 @@
+/// Folder holding the Parquet files written by powerbi/export_powerbi_data.py
+expression DataFolder = "C:\retail-enterprise-warehouse\powerbi\data" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 6f1d6b0a-1d1e-4c47-9d6a-4f2b1a6e0001

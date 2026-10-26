@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: bronze
+    schema: bronze
+    tables:
+      - name: liquor_sales
+        description: "REAL. Iowa liquor sales 2023-2025 (Iowa Department of Revenue, Iowa Data Hub datasets 1260-1262, CC BY), as published, including duplicated months."

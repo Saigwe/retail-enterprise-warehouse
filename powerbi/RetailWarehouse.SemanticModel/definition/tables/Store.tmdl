@@ -1,0 +1,38 @@
+/// Conformed store dimension (SCD2): one row per store version, so a sale shows the name and county the store had then.
+table Store
+
+	column store_sk
+		dataType: string
+		sourceColumn: store_sk
+		isKey
+		summarizeBy: none
+
+	column store_no
+		dataType: string
+		sourceColumn: store_no
+		summarizeBy: none
+
+	column store_name
+		dataType: string
+		sourceColumn: store_name
+
+	column store_city
+		dataType: string
+		sourceColumn: store_city
+
+	column county_name
+		dataType: string
+		sourceColumn: county_name
+
+	column is_current
+		dataType: boolean
+		sourceColumn: is_current
+
+	partition Store = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\dim_store.parquet")),
+				    Kept = Table.SelectColumns(Source, {"store_sk", "store_no", "store_name", "store_city", "county_name", "is_current"})
+				in
+				    Kept

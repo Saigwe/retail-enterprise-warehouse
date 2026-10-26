@@ -1,0 +1,24 @@
+/// Conformed category dimension with its business unit. Row-level security filters this table by business unit.
+table Category
+
+	column category_code
+		dataType: string
+		sourceColumn: category_code
+		isKey
+		summarizeBy: none
+
+	column category_name
+		dataType: string
+		sourceColumn: category_name
+
+	column business_unit
+		dataType: string
+		sourceColumn: business_unit
+
+	partition Category = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\dim_category.parquet"))
+				in
+				    Source

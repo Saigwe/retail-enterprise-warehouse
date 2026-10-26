@@ -1,0 +1,83 @@
+/// Daily sales by store version and category, summarised from gold.fct_sales_line. The KPI definitions match
+/// gold.rpt_bu_monthly, so the report and the warehouse show the same numbers.
+table Sales
+
+	measure 'Sales $' = SUM ( Sales[sales_dollars] )
+		formatString: \$#,0
+
+	measure Litres = SUM ( Sales[sales_liters] )
+		formatString: #,0
+
+	measure Bottles = SUM ( Sales[sales_bottles] )
+		formatString: #,0
+
+	measure 'Price per litre' = DIVIDE ( [Sales $], [Litres] )
+		formatString: \$#,0.00
+
+	/// Margin exists only where the state published cost (none before 2025), so the rate uses only those sales.
+	measure 'Gross margin $' = SUM ( Sales[gross_margin_dollars] )
+		formatString: \$#,0
+
+	measure 'Gross margin %' = DIVIDE ( [Gross margin $], SUM ( Sales[sales_dollars_with_cost] ) )
+		formatString: 0.0%
+
+	measure 'Cost coverage %' = DIVIDE ( SUM ( Sales[sales_dollars_with_cost] ), [Sales $] )
+		formatString: 0.0%
+
+	measure 'Active stores' = DISTINCTCOUNT ( Store[store_no] )
+		formatString: #,0
+
+	measure 'Sales $ last year' = CALCULATE ( [Sales $], SAMEPERIODLASTYEAR ( 'Date'[date_day] ) )
+		formatString: \$#,0
+
+	measure 'Sales YoY %' = DIVIDE ( [Sales $] - [Sales $ last year], [Sales $ last year] )
+		formatString: 0.0%
+
+	column date_day
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		sourceColumn: date_day
+		summarizeBy: none
+
+	column store_sk
+		dataType: string
+		sourceColumn: store_sk
+		summarizeBy: none
+
+	column category_code
+		dataType: string
+		sourceColumn: category_code
+		summarizeBy: none
+
+	column sales_dollars
+		dataType: double
+		sourceColumn: sales_dollars
+		isHidden
+
+	column sales_liters
+		dataType: double
+		sourceColumn: sales_liters
+		isHidden
+
+	column sales_bottles
+		dataType: int64
+		sourceColumn: sales_bottles
+		isHidden
+
+	column gross_margin_dollars
+		dataType: double
+		sourceColumn: gross_margin_dollars
+		isHidden
+
+	column sales_dollars_with_cost
+		dataType: double
+		sourceColumn: sales_dollars_with_cost
+		isHidden
+
+	partition Sales = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\fct_sales_daily.parquet"))
+				in
+				    Source

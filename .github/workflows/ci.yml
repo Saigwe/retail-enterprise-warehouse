@@ -1,0 +1,24 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Cache the Iowa downloads (about 2 GB)
+        uses: actions/cache@v4
+        with:
+          path: data/raw
+          key: iowa-liquor-2023-2025-v1
+      - run: pip install -r requirements.txt
+      - name: Full pipeline on the real data (download, load, dbt build incl. regulator reconciliation, forecast, Power BI export, pytest)
+        run: make all

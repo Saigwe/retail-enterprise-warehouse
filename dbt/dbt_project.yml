@@ -1,0 +1,32 @@
+name: retail_enterprise_warehouse
+version: "0.1.0"
+config-version: 2
+profile: retail_enterprise_warehouse
+model-paths: ["models"]
+macro-paths: ["macros"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+target-path: target
+clean-targets: [target, dbt_packages]
+
+vars:
+  # Iowa's fiscal year runs July to June; the regulator publishes totals by fiscal year.
+  fiscal_year_start_month: 7
+
+seeds:
+  retail_enterprise_warehouse:
+    +schema: silver
+    category_business_unit:
+      +column_types: {category_code: varchar, conformed_category_code: varchar}
+
+models:
+  retail_enterprise_warehouse:
+    staging:
+      +schema: silver
+      +materialized: view
+    intermediate:
+      +schema: silver
+      +materialized: table
+    marts:
+      +schema: gold
+      +materialized: table

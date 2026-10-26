@@ -1,0 +1,3 @@
+/// Finance and leadership: every business unit.
+role 'All business units'
+	modelPermission: read

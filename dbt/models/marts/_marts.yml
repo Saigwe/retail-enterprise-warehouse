@@ -1,0 +1,73 @@
+version: 2
+
+models:
+  - name: dim_store
+    description: "Conformed store dimension, SCD2."
+    data_tests:
+      - trust_tests.scd2_valid:
+          arguments: {entity_key: store_no, valid_from: valid_from, valid_to: valid_to, current_flag: is_current}
+    columns:
+      - name: store_sk
+        data_tests: [unique, not_null]
+  - name: dim_category
+    columns:
+      - name: category_code
+        data_tests: [unique, not_null]
+  - name: dim_item
+    columns:
+      - name: item_no
+        data_tests: [unique, not_null]
+      - name: category_code
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_category'), field: category_code}
+  - name: dim_vendor
+    columns:
+      - name: vendor_number
+        data_tests: [unique, not_null]
+  - name: dim_date
+    columns:
+      - name: date_day
+        data_tests: [unique, not_null]
+  - name: fct_sales_line
+    description: "One row per distinct sales line with conformed keys."
+    data_tests:
+      - trust_tests.reconciles_to:
+          arguments:
+            to: ref('stg_iowa__sales_lines')
+            measures: {n_lines: "count(*)", sales_dollars: "sum(sales_dollars)", sales_liters: "sum(sales_liters)"}
+            tolerance: 0.01
+    columns:
+      - name: sales_line_id
+        data_tests: [unique, not_null]
+      - name: store_sk
+        data_tests:
+          - not_null
+          - trust_tests.point_in_time_valid:
+              arguments: {to: ref('dim_store'), field: store_sk, event_at: ordered_on, valid_from: valid_from, valid_to: valid_to}
+      - name: item_no
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_item'), field: item_no}
+      - name: vendor_number
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_vendor'), field: vendor_number}
+  - name: rpt_bu_monthly
+    description: "Shared KPIs per business unit and month, plus the company total ('All')."
+    data_tests:
+      - trust_tests.unique_combination:
+          arguments: {columns: [business_unit, month_start]}
+      - trust_tests.reconciles_to:
+          name: business_units_add_up_to_the_company
+          arguments:
+            to: ref('rpt_bu_monthly')
+            measures: {sales_dollars: "sum(sales_dollars)", sales_liters: "sum(sales_liters)", sales_bottles: "sum(sales_bottles)"}
+            where: "business_unit <> 'All'"
+            to_where: "business_unit = 'All'"
+            group_by: [month_start]
+            tolerance: 0.01
+  - name: rpt_data_quality
+    columns:
+      - name: issue
+        data_tests: [unique, not_null]

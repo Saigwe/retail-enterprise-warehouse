@@ -1,0 +1,40 @@
+/// Conformed date dimension, including Iowa's July-June fiscal year. Marked as the model's date table.
+table Date
+	dataCategory: Time
+
+	column date_day
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		sourceColumn: date_day
+		isKey
+		summarizeBy: none
+
+	column calendar_year
+		dataType: int64
+		sourceColumn: calendar_year
+		summarizeBy: none
+
+	column month_start
+		dataType: dateTime
+		formatString: mmm yyyy
+		sourceColumn: month_start
+		summarizeBy: none
+
+	column week_start
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		sourceColumn: week_start
+		summarizeBy: none
+
+	column fiscal_year
+		dataType: int64
+		sourceColumn: fiscal_year
+		summarizeBy: none
+
+	partition Date = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\dim_date.parquet"))
+				in
+				    Source

@@ -1,0 +1,5 @@
+/// Business-unit managers see only their own categories; company totals stay with the 'All business units' role.
+role 'Liqueurs & Cordials managers'
+	modelPermission: read
+
+	tablePermission Category = [business_unit] = "Liqueurs & Cordials"

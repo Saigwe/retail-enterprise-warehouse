@@ -1,0 +1,29 @@
+method,level,wape
+seasonal_naive,state,0.0798
+seasonal_naive,business unit (pooled),0.1088
+seasonal_naive,Agave & Rum,0.105
+seasonal_naive,"Gin, Brandy & Other",0.1943
+seasonal_naive,Liqueurs & Cordials,0.0702
+seasonal_naive,Vodka & Neutral Spirits,0.0963
+seasonal_naive,Whiskey,0.1079
+recent_mean,state,0.0837
+recent_mean,business unit (pooled),0.128
+recent_mean,Agave & Rum,0.1498
+recent_mean,"Gin, Brandy & Other",0.1405
+recent_mean,Liqueurs & Cordials,0.0851
+recent_mean,Vodka & Neutral Spirits,0.1224
+recent_mean,Whiskey,0.1361
+lgbm,state,0.0776
+lgbm,business unit (pooled),0.1012
+lgbm,Agave & Rum,0.1033
+lgbm,"Gin, Brandy & Other",0.1728
+lgbm,Liqueurs & Cordials,0.068
+lgbm,Vodka & Neutral Spirits,0.1021
+lgbm,Whiskey,0.0901
+lgbm_raw_file,state,0.4295
+lgbm_raw_file,business unit (pooled),0.4415
+lgbm_raw_file,Agave & Rum,0.4132
+lgbm_raw_file,"Gin, Brandy & Other",0.595
+lgbm_raw_file,Liqueurs & Cordials,0.4484
+lgbm_raw_file,Vodka & Neutral Spirits,0.4209
+lgbm_raw_file,Whiskey,0.4133

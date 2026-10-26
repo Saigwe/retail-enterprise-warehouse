@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_iowa__sales_lines
+    columns:
+      - name: sales_line_id
+        data_tests: [unique, not_null]
+      - name: category_code
+        data_tests:
+          - relationships:
+              arguments: {to: ref('category_business_unit'), field: category_code}

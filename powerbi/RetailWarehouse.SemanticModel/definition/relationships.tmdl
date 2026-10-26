@@ -1,0 +1,11 @@
+relationship 3b7c1e10-0001-4a5e-9a01-000000000001
+	fromColumn: Sales.store_sk
+	toColumn: Store.store_sk
+
+relationship 3b7c1e10-0002-4a5e-9a01-000000000002
+	fromColumn: Sales.category_code
+	toColumn: Category.category_code
+
+relationship 3b7c1e10-0003-4a5e-9a01-000000000003
+	fromColumn: Sales.date_day
+	toColumn: Date.date_day

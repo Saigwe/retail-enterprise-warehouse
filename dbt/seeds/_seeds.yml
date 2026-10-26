@@ -1,0 +1,14 @@
+version: 2
+
+seeds:
+  - name: category_business_unit
+    description: "Reviewed mapping: category code -> conformed code and name -> business unit (from the publisher's code hierarchy)."
+    columns:
+      - name: category_code
+        data_tests: [unique, not_null]
+      - name: business_unit
+        data_tests:
+          - accepted_values:
+              arguments: {values: ['Whiskey', 'Vodka & Neutral Spirits', 'Agave & Rum', 'Liqueurs & Cordials', 'Gin, Brandy & Other']}
+  - name: regulator_totals
+    description: "Published fiscal-year totals from the regulator, with sources."
