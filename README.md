@@ -20,6 +20,13 @@ As Lead Data Analytics Engineer at a consumer-audio company I owned the analytic
 | **Why it matters** | Every business unit's numbers add up to the company's by construction (tested), the company's number matches the regulator's, and the forecast is trained on data that is actually right. |
 | **Proof** | FY2025 sales: warehouse $435.46M vs $434.94M published (+0.12%); raw file +23.1%. Forecasting on the raw file would have meant 44% error instead of 10%. See [Numbers](#numbers). |
 
+## Charts
+Rendered from this repo's own results by `charts/make_charts.py` (`make charts`); CI re-renders them on every push.
+
+![Weekly sales against the four-week forecast, 2025](docs/charts/forecast_2025.png)
+
+![Forecast error by level and method](docs/charts/forecast_error.png)
+
 ## Architecture
 ```mermaid
 flowchart LR

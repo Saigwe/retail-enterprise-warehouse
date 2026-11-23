@@ -4,7 +4,7 @@ DBT_BIN ?= dbt
 DBT = cd dbt && DUCKDB_PATH=../$(DB) $(DBT_BIN)
 HUB = https://data.iowa.gov/api/dataset-download?path=datasets%2F
 
-.PHONY: all download load dbt forecast powerbi-data test clean
+.PHONY: all download load dbt forecast powerbi-data test clean charts
 
 all: download load dbt forecast powerbi-data test   ## real Iowa sales 2023-2025 -> conformed warehouse -> forecast -> Power BI data -> tests
 
@@ -31,3 +31,6 @@ test:
 
 clean:
 	rm -rf warehouse data/parquet powerbi/data dbt/target dbt/logs dbt/dbt_packages
+
+charts:                                            ## README charts -> docs/charts
+	$(PY) charts/make_charts.py
